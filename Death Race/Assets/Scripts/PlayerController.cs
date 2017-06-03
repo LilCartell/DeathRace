@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour {
 
         if (lastJump != jump && jump && grounded)
         {
+            Debug.Log("Button [" + "Jump" + playerIndex.ToString() + "] Triggered !");
             playerRigidbody.AddForce(new Vector2(move * maxSpeed, jumpForce));
         }
 	}
