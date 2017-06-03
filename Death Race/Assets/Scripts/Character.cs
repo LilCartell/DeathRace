@@ -14,7 +14,7 @@ public class Character : MonoBehaviour {
 		_animator = GetComponent<Animator> ();
 	}
 
-	public void Die(Trap trap) //TODO Param enum cause of death ?
+	public void Die(Trap trap)
 	{
 		_killedBy = trap;
 		_animator.SetTrigger ("DEATH_" + trap.causeOfDeath.ToString ());

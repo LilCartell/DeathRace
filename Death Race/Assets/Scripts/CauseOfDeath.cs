@@ -2,7 +2,6 @@
 
 namespace AssemblyCSharp
 {
-	//TODO Complete with aaaaaaaall causes of death
 	//Character animator have triggers named DEATH_CauseOfDeath
 	public enum CauseOfDeath
 	{
