@@ -27,7 +27,7 @@ public class RandomTrapManager : MonoBehaviour
 	void Update () 
 	{
 		timeSinceLastTrap += Time.deltaTime;
-		if (timeSinceLastTrap >= TimeBetweenTraps && _randomDeathTiles.Count > 0) 
+		if (timeSinceLastTrap >= TimeBetweenTraps && _randomDeathTiles.Count > 0 && trapPrefabs.Count > 0) 
 		{
 			var deactivatedRandomDeathTiles = _randomDeathTiles.Where(tile => tile.Activated).ToList();
 			var chosenTile = deactivatedRandomDeathTiles [Random.Range (0, deactivatedRandomDeathTiles.Count)];

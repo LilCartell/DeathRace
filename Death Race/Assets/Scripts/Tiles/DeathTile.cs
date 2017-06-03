@@ -19,10 +19,14 @@ namespace AssemblyCSharp
 		{
 			base.Awake ();
 			trap = GetComponentInChildren<Trap> ();
-			Activate ();
 		}
 
-		protected override void Update()
+        public void Start()
+        {
+			Activate ();
+        }
+
+        protected override void Update()
 		{
 			base.Update ();
 			if (Periodic && !activated)
@@ -49,7 +53,7 @@ namespace AssemblyCSharp
 
 		public virtual void Activate()
 		{
-            print("Activate");
+            //print("Activate");
 			if (trap != null) 
 			{
 				trap.Activate ();
