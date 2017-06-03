@@ -6,7 +6,7 @@ namespace AssemblyCSharp
 	{
 		public bool ReplaceWithDeadBody = false;
 
-		private bool activated = true;
+		private bool activated;
 		protected Trap trap;
 
 		public bool Activated{get { return activated;}}
@@ -14,9 +14,10 @@ namespace AssemblyCSharp
 		protected override void Awake(){
 			base.Awake ();
 			trap = GetComponentInChildren<Trap> ();
+			Activate ();
 		} 
 
-		public override void OnEntryFrom(Character character)
+		public override void CharacterEntered(Character character)
 		{
 			if (activated) 
 			{
@@ -27,8 +28,11 @@ namespace AssemblyCSharp
 
 		public virtual void Activate()
 		{
-			trap.Activate ();
-			activated = true;
+			if (trap != null) 
+			{
+				trap.Activate ();
+				activated = true;
+			}
 		}
 
 		public void OnFinishedKill(){
