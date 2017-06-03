@@ -8,15 +8,15 @@ namespace AssemblyCSharp
 		protected virtual void Awake()
 		{
 		}
-
-		private void Update()
-		{
-			if (false) //TODO replace by collision with character
+			
+		public void OnTriggerEnter2D(Collider2D other){
+			if (other.gameObject.tag == "Player") 
 			{
+				CharacterEntered (other.GetComponent<Character> ());
 			}
 		}
 
-		public abstract void OnEntryFrom(Character character);
+		public abstract void CharacterEntered(Character character);
 	}
 }
 

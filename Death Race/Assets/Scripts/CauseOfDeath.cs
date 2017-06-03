@@ -6,7 +6,7 @@ namespace AssemblyCSharp
 	public enum CauseOfDeath
 	{
 		DEFAULT,
-		ELECTRICIY,
+		ELECTRICITY,
 		EXPLOSION,
 		SPIKES,
 		CIRCULAR_SAW,
