@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿/*
+using UnityEngine;
 using UnityEditor;
 
 public class SpritePixelsPerUnitChanger : AssetPostprocessor
@@ -9,3 +10,4 @@ public class SpritePixelsPerUnitChanger : AssetPostprocessor
 		textureImporter.spritePixelsPerUnit = 64;
 	}
 }
+*/

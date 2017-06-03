@@ -15,12 +15,14 @@ public class PlayerController : MonoBehaviour {
     private Animator _animator;
     private bool jump;
     private bool _walk;
+    private SpriteRenderer _renderer;
 
     Rigidbody2D playerRigidbody;
     // Use this for initialization
     void Start () {
         playerRigidbody = gameObject.GetComponent<Rigidbody2D>();
         _animator = gameObject.GetComponent<Animator>();
+        _renderer = gameObject.GetComponent<SpriteRenderer>();
 	}
         
         // Update is called once per frame
@@ -32,6 +34,7 @@ public class PlayerController : MonoBehaviour {
         bool lastJump = jump;
         bool lastWalk = _walk;
 
+        _renderer.flipX = move < 0;
         if (grounded)
             playerRigidbody.velocity = new Vector2(move * maxSpeed, playerRigidbody.velocity.y);
         else if (!grounded && (move >= 0.5f || move <= -0.5f))
@@ -41,11 +44,6 @@ public class PlayerController : MonoBehaviour {
         if (_walk != lastWalk)
         {
             if (_walk)
-                print("Start walking");
-            else
-                print("Stop walking");
-
-            if (_walk)
                 _animator.SetTrigger("StartWalk");
             else
                 _animator.SetTrigger("StopWalk");
@@ -54,7 +52,9 @@ public class PlayerController : MonoBehaviour {
         if (lastJump != jump && jump && grounded)
         {
             playerRigidbody.AddForce(new Vector2(move * maxSpeed, jumpForce));
-            //playerRigidbody.inertia = playerRigidbody.velocity;
+            _animator.SetTrigger("Jump");
         }
+        else if (grounded && grounded != lastJump)
+            _animator.SetTrigger("StopJump");
 	}
 }
