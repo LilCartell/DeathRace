@@ -18,7 +18,7 @@ public class Character : MonoBehaviour {
 		
 	}
 
-	public void StartDeath() //TODO Param enum cause of death ?
+	public void Die() //TODO Param enum cause of death ?
 	{
 		//Trigger death animation
 	}
