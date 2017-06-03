@@ -3,10 +3,32 @@ using UnityEngine;
 
 namespace AssemblyCSharp
 {
-	public abstract class Trap : MonoBehaviour
+	[RequireComponent(typeof(Animator))]
+	public class Trap : MonoBehaviour
 	{
-		public abstract void ActivateTrap ();
-		public abstract void DeactivateTrap();
+		public CauseOfDeath causeOfDeath;
+		public int ScoreModifier;
+		private Animator _animator;
+
+		protected virtual void Awake()
+		{
+			_animator = GetComponent<Animator> ();
+		}
+
+		public void Activate () 
+		{
+			_animator.SetTrigger ("Activate");
+		}
+			
+		public void Trigger ()
+		{
+			_animator.SetTrigger ("Kill");
+		}
+
+		public void KillAnimationOver ()
+		{
+			GetComponentInParent<DeathTile> ().OnFinishedKill ();
+		}
 	}
 }
 

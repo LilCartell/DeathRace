@@ -4,6 +4,8 @@ namespace AssemblyCSharp
 {
 	public class DeathTile : Tile
 	{
+		public bool ReplaceWithDeadBody = false;
+
 		private bool activated = true;
 		protected Trap trap;
 
@@ -16,20 +18,25 @@ namespace AssemblyCSharp
 		{
 			if (activated) 
 			{
-				//TODO Launch anim for trap ?
-				character.Die (); //TODO Add cause of death ?
-
+				trap.Trigger ();
+				character.Die (trap);
 			}
 		}
 
 		public virtual void Activate()
 		{
-			//TODO Launch anim for trap activation (landmine goes click, circular saw starts moving...)
+			trap.Activate ();
 			activated = true;
 		}
 
+		public void OnFinishedKill(){
+			Deactivate ();
+			if (ReplaceWithDeadBody) {
+				//TODO Place a dead body to step on instead of the tile 
+			}
+		}
+
 		public virtual void Deactivate(){
-			//TODO Launch anim for trap deactivation
 			activated = false;
 		}
 	}

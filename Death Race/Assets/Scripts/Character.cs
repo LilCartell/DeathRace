@@ -6,25 +6,22 @@ using AssemblyCSharp;
 public class Character : MonoBehaviour {
 
 	public Player controller;
-	// Use this for initialization
-	private void Start () 
-	{
-		
-	}
-	
-	// Update is called once per frame
-	private void Update () 
-	{
-		
+
+	private Animator _animator;
+	private Trap _killedBy;
+
+	private void Awake(){
+		_animator = GetComponent<Animator> ();
 	}
 
-	public void Die() //TODO Param enum cause of death ?
+	public void Die(Trap trap) //TODO Param enum cause of death ?
 	{
-		//Trigger death animation
+		_killedBy = trap;
+		_animator.SetTrigger ("DEATH_" + trap.causeOfDeath.ToString ());
 	}
 
 	private void EndDeath()
 	{
-		controller.OnCharacterIsDead ();
+		controller.OnCharacterIsDead (_killedBy);
 	}
 }

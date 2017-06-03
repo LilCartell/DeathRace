@@ -22,7 +22,8 @@ namespace AssemblyCSharp
 			Activate ();
 		}
 
-		public void FinishDeactivate(){
+		public override void Deactivate(){
+			base.Deactivate ();
 			Destroy (trap);
 		}
 	}

@@ -5,29 +5,48 @@ using AssemblyCSharp;
 
 public class Player : MonoBehaviour {
 
-	public int Score;
+	public int StartingScore;
+
+	private int score;
 	public GameObject characterPrefab;
 
 	private Character _currentCharacter;
 
-	public void AddPoints(int points)
-	{
-		Score += points;
+	public void Awake(){
+		score = StartingScore;
 	}
 
-	public void RemovePoints(int points)
+	private void AddPoints(int points)
 	{
-		Score -= points;
-		if (Score <= 0) 
+		score += points;
+	}
+
+	private void RemovePoints(int points)
+	{
+		score -= points;
+		if (score <= 0) 
 		{
 			GameManager.Instance.MakePlayerWin (this);
 		}
 	}
 
-	public void OnCharacterIsDead() //MAYBE TAKE CAUSE OF DEATH ?
+	public void ApplyScoreModifier(int points){
+		if (points > 0) 
+		{
+			AddPoints (points);
+		} 
+		else 
+		{
+			RemovePoints (-points);
+		}
+	}
+
+	public void OnCharacterIsDead(Trap trap) //MAYBE TAKE CAUSE OF DEATH ?
 	{
 		//Remove points according to cause of death ?
+		RemovePoints(trap.ScoreModifier);
 		Destroy(_currentCharacter);
+		SpawnNewCharacter ();
 	}
 
 	private void SpawnNewCharacter()
