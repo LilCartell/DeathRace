@@ -41,7 +41,7 @@ public class Player : MonoBehaviour {
 		}
 	}
 
-	public void OnCharacterIsDead(Trap trap) //MAYBE TAKE CAUSE OF DEATH ?
+	public void OnCharacterIsDead(Trap trap)
 	{
 		//Remove points according to cause of death ?
 		RemovePoints(trap.ScoreModifier);
