@@ -7,8 +7,10 @@ public class PlayerController : MonoBehaviour {
 
     public int playerIndex = 1;
     public float maxSpeed = 2f;
+    public float inAirSpeed = 0.5f;
     public float jumpForce = 1000f;
     public float groundCheckRadius = 0.1f;
+    public float groundCheckPositionOffset = -0.5f;
 
     Rigidbody2D playerRigidbody;
     // Use this for initialization
@@ -20,16 +22,21 @@ public class PlayerController : MonoBehaviour {
         // Update is called once per frame
     void Update () {
         float move = Input.GetAxis("AxeX" + playerIndex.ToString());
-        playerRigidbody.velocity = new Vector2(move * maxSpeed, playerRigidbody.velocity.y);
+        Vector3 pos = transform.position;
+        pos.y += groundCheckPositionOffset;
+        bool grounded = Physics2D.OverlapCircleAll(pos, groundCheckRadius).Length > 1;
         bool lastJump = jump;
-        jump = Input.GetButton("Jump" + playerIndex.ToString());
 
-        bool grounded = Physics2D.OverlapCircleAll(transform.position, groundCheckRadius).Length > 1;
+        if (grounded)
+            playerRigidbody.velocity = new Vector2(move * maxSpeed, playerRigidbody.velocity.y);
+        else if (!grounded && (move >= 0.5f || move <= -0.5f))
+            playerRigidbody.velocity = new Vector2(move * Mathf.Min(Mathf.Abs(playerRigidbody.velocity.x + (move * inAirSpeed)), maxSpeed), playerRigidbody.velocity.y);
+        jump = Input.GetButton("Jump" + playerIndex.ToString());
 
         if (lastJump != jump && jump && grounded)
         {
-            Debug.Log("Button [" + "Jump" + playerIndex.ToString() + "] Triggered !");
             playerRigidbody.AddForce(new Vector2(move * maxSpeed, jumpForce));
+            //playerRigidbody.inertia = playerRigidbody.velocity;
         }
 	}
 }
