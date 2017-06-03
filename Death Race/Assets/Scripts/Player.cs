@@ -14,6 +14,8 @@ public class Player : MonoBehaviour {
 
 	public void Awake(){
 		score = StartingScore;
+
+		SpawnNewCharacter();
 	}
 
 	private void AddPoints(int points)
@@ -52,7 +54,10 @@ public class Player : MonoBehaviour {
 	private void SpawnNewCharacter()
 	{
 		var newCharacter = Instantiate<GameObject> (characterPrefab);
+		newCharacter.transform.localScale = this.transform.localScale;
+		newCharacter.transform.localPosition = this.transform.localPosition;
+		newCharacter.transform.localRotation = this.transform.localRotation;
 		_currentCharacter = newCharacter.GetComponent<Character> ();
-		//SET CURRENT CHARACTER TRANSFORM ON SPAWN
+		_currentCharacter.controller = this;
 	}
 }
