@@ -9,6 +9,7 @@ public class Player : MonoBehaviour {
 
 	private int score;
 	public GameObject characterPrefab;
+    public Transform spawnPoint;
 
 	private Character _currentCharacter;
 
@@ -44,7 +45,7 @@ public class Player : MonoBehaviour {
 	public void OnCharacterIsDead(Trap trap) //MAYBE TAKE CAUSE OF DEATH ?
 	{
 		//Remove points according to cause of death ?
-		RemovePoints(trap.ScoreModifier);
+		Die(trap.ScoreModifier);
 		Destroy(_currentCharacter);
 		SpawnNewCharacter ();
 	}
@@ -53,6 +54,13 @@ public class Player : MonoBehaviour {
 	{
 		var newCharacter = Instantiate<GameObject> (characterPrefab);
 		_currentCharacter = newCharacter.GetComponent<Character> ();
-		//SET CURRENT CHARACTER TRANSFORM ON SPAWN
+        _currentCharacter.transform.position = spawnPoint.position;
 	}
+
+    public void Die(int score)
+    {
+        RemovePoints(score);
+        Destroy(_currentCharacter);
+        SpawnNewCharacter();
+    }
 }
