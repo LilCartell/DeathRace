@@ -12,16 +12,19 @@ namespace AssemblyCSharp
 
 		protected virtual void Awake()
 		{
+            print("Awake Animation");
 			_animator = GetComponent<Animator> ();
 		}
 
 		public void Activate () 
 		{
+            print("Activated animation");
 			_animator.SetTrigger ("Activate");
 		}
 			
 		public void Trigger ()
 		{
+            print("Triggered animation");
 			_animator.SetTrigger ("Kill");
 		}
 
