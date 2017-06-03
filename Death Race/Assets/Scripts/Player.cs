@@ -32,7 +32,8 @@ public class Player : MonoBehaviour {
 
 	private void SpawnNewCharacter()
 	{
-		_currentCharacter = Instantiate<GameObject> (characterPrefab);
+		var newCharacter = Instantiate<GameObject> (characterPrefab);
+		_currentCharacter = newCharacter.GetComponent<Character> ();
 		//SET CURRENT CHARACTER TRANSFORM ON SPAWN
 	}
 }
