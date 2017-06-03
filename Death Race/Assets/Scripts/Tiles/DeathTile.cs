@@ -38,6 +38,7 @@ namespace AssemblyCSharp
 
 		public override void CharacterEntered(Character character)
 		{
+            print("Character entered");
 			if (activated) 
 			{
 				Deactivate ();				
@@ -48,6 +49,7 @@ namespace AssemblyCSharp
 
 		public virtual void Activate()
 		{
+            print("Activate");
 			if (trap != null) 
 			{
 				trap.Activate ();
@@ -56,12 +58,14 @@ namespace AssemblyCSharp
 		}
 
 		public void OnFinishedKill(){
+            print("on finished kill");
 			if (ReplaceWithDeadBody) {
 				//TODO Place a dead body to step on instead of the tile 
 			}
 		}
 
 		public virtual void Deactivate(){
+            print("deactivate");
 			activated = false;
 			_timeSinceDeactivation = 0f;
 		}

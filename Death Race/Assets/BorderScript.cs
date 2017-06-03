@@ -12,7 +12,7 @@ public class BorderScript : MonoBehaviour {
             Character c = other.gameObject.GetComponent<Character>();
             if (c)
             {
-                c.controller.ForceDie();
+                c.controller.DebugDie();
             }
         }
     }
