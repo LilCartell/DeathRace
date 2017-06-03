@@ -65,7 +65,7 @@ public class Player : MonoBehaviour {
     public void ForceDie()
     {
         _currentCharacter.Die(null);
-        Destroy(_currentCharacter);
+        Destroy(_currentCharacter.gameObject);
         SpawnNewCharacter();
     }
 }
