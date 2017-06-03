@@ -10,6 +10,7 @@ public class Player : MonoBehaviour {
 	private int score;
 	public GameObject characterPrefab;
     public Transform spawnPoint;
+    public int playerID;
 
 	private Character _currentCharacter;
 
@@ -19,7 +20,7 @@ public class Player : MonoBehaviour {
 		SpawnNewCharacter();
 	}
 
-	private void AddPoints(int points)
+    private void AddPoints(int points)
 	{
 		score += points;
 	}
@@ -61,7 +62,8 @@ public class Player : MonoBehaviour {
 		_currentCharacter = newCharacter.GetComponent<Character> ();
         _currentCharacter.transform.position = spawnPoint.position;
 		_currentCharacter.controller = this;
-	}
+        _currentCharacter.GetComponent<PlayerController>().playerIndex = playerID;
+    }
 
     public void DebugDie()
     {
