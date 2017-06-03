@@ -8,6 +8,9 @@ namespace AssemblyCSharp
 		protected virtual void Awake()
 		{
 		}
+
+		protected virtual void Update()
+		{}
 			
 		public void OnTriggerEnter2D(Collider2D other){
 			if (other.gameObject.tag == "Player") 
