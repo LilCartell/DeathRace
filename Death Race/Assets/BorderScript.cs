@@ -9,8 +9,11 @@ public class BorderScript : MonoBehaviour {
     {
         if (other.gameObject.tag == "Player")
         {
-            Player p = other.gameObject.GetComponent<Player>();
-            if (p)p.Die(0);
+            Character c = other.gameObject.GetComponent<Character>();
+            if (c)
+            {
+                c.controller.ForceDie();
+            }
         }
     }
 }

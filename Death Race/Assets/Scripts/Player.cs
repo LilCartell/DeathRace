@@ -15,6 +15,8 @@ public class Player : MonoBehaviour {
 
 	public void Awake(){
 		score = StartingScore;
+
+		SpawnNewCharacter();
 	}
 
 	private void AddPoints(int points)
@@ -42,24 +44,27 @@ public class Player : MonoBehaviour {
 		}
 	}
 
-	public void OnCharacterIsDead(Trap trap) //MAYBE TAKE CAUSE OF DEATH ?
+	public void OnCharacterIsDead(Trap trap)
 	{
-		//Remove points according to cause of death ?
-		Die(trap.ScoreModifier);
-		Destroy(_currentCharacter);
-		SpawnNewCharacter ();
+        //Remove points according to cause of death ?
+        ApplyScoreModifier(trap.ScoreModifier);
+        ForceDie();
 	}
 
 	private void SpawnNewCharacter()
 	{
 		var newCharacter = Instantiate<GameObject> (characterPrefab);
+		newCharacter.transform.localScale = this.transform.localScale;
+		newCharacter.transform.localPosition = this.transform.localPosition;
+		newCharacter.transform.localRotation = this.transform.localRotation;
 		_currentCharacter = newCharacter.GetComponent<Character> ();
         _currentCharacter.transform.position = spawnPoint.position;
+		_currentCharacter.controller = this;
 	}
 
-    public void Die(int score)
+    public void ForceDie()
     {
-        RemovePoints(score);
+        _currentCharacter.Die(null);
         Destroy(_currentCharacter);
         SpawnNewCharacter();
     }

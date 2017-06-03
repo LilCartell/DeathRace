@@ -9,6 +9,8 @@ namespace AssemblyCSharp
 		private bool activated = true;
 		protected Trap trap;
 
+		public bool Activated{get { return activated;}}
+
 		protected override void Awake(){
 			base.Awake ();
 			trap = GetComponentInChildren<Trap> ();

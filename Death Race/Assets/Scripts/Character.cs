@@ -15,13 +15,20 @@ public class Character : MonoBehaviour {
 
 	private void Awake(){
 		_animator = GetComponent<Animator> ();
-        _audioSource = GetComponent<AudioSource>();
 	}
 
-	public void Die(Trap trap)
+    public void Start()
+    {
+        _audioSource = controller.GetComponent<AudioSource>();
+    }
+
+    public void Die(Trap trap)
 	{
-		_killedBy = trap;
-		_animator.SetTrigger ("DEATH_" + trap.causeOfDeath.ToString ());
+        if (trap)
+        {
+    		_killedBy = trap;
+	    	_animator.SetTrigger ("DEATH_" + trap.causeOfDeath.ToString ());
+        }
         _audioSource.clip = deathScreams[Random.Range(0, deathScreams.Length)];
         _audioSource.Play();
 	}
