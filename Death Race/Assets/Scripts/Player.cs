@@ -9,7 +9,6 @@ public class Player : MonoBehaviour {
 
 	private int score;
 	public GameObject characterPrefab;
-    public Transform spawnPoint;
     public int playerID;
 
 	private Character _currentCharacter;
@@ -60,7 +59,6 @@ public class Player : MonoBehaviour {
 		newCharacter.transform.localPosition = this.transform.localPosition;
 		newCharacter.transform.localRotation = this.transform.localRotation;
 		_currentCharacter = newCharacter.GetComponent<Character> ();
-        _currentCharacter.transform.position = spawnPoint.position;
 		_currentCharacter.controller = this;
         _currentCharacter.GetComponent<PlayerController>().playerIndex = playerID;
     }
