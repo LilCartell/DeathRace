@@ -48,7 +48,8 @@ public class Player : MonoBehaviour {
 	{
         //Remove points according to cause of death ?
         ApplyScoreModifier(trap.ScoreModifier);
-        ForceDie();
+		Destroy(_currentCharacter.gameObject);
+		SpawnNewCharacter();
 	}
 
 	private void SpawnNewCharacter()
@@ -62,10 +63,10 @@ public class Player : MonoBehaviour {
 		_currentCharacter.controller = this;
 	}
 
-    public void ForceDie()
+    public void DebugDie()
     {
         _currentCharacter.Die(null);
-        Destroy(_currentCharacter.gameObject);
-        SpawnNewCharacter();
+		Destroy(_currentCharacter.gameObject);
+		SpawnNewCharacter();
     }
 }
