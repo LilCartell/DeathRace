@@ -1,12 +1,12 @@
 ﻿using System;
+using UnityEngine;
 
 namespace AssemblyCSharp
 {
-	public class PowerUp
+	public abstract class PowerUp
 	{
-		public PowerUp ()
-		{
-		}
+		public abstract Sprite GetSprite();
+		public abstract void Activate (Character character);
 	}
 }
 
