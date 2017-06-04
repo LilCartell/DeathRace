@@ -11,6 +11,7 @@ namespace AssemblyCSharp
 		protected float _timeSinceDeactivation = 0;
         public AudioClip _clipToPlay;
         public Vector3 _deadBodySpawnPosition;
+        public GameObject _particleEmitter;
 
         protected Sprite spr;
 
@@ -85,6 +86,12 @@ namespace AssemblyCSharp
                 temp.transform.parent = transform;
                 temp.transform.position = transform.position + _deadBodySpawnPosition;
                 temp.layer = 9;
+                if (_particleEmitter)
+                {
+                    GameObject particles = GameObject.Instantiate(_particleEmitter);
+                    particles.transform.parent = transform;
+                    particles.transform.position = transform.position + _deadBodySpawnPosition;
+                }
 			}
 		}
 
