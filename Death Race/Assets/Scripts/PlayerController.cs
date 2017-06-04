@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour {
     private bool jump;
     private bool _walk;
     private SpriteRenderer _renderer;
+	private Character _character;
 
     Rigidbody2D playerRigidbody;
     // Use this for initialization
@@ -23,6 +24,7 @@ public class PlayerController : MonoBehaviour {
         playerRigidbody = gameObject.GetComponent<Rigidbody2D>();
         _animator = gameObject.GetComponent<Animator>();
         _renderer = gameObject.GetComponent<SpriteRenderer>();
+		_character = gameObject.GetComponent<Character> ();
 	}
         
         // Update is called once per frame
@@ -39,6 +41,12 @@ public class PlayerController : MonoBehaviour {
         }
         bool lastJump = jump;
         bool lastWalk = _walk;
+
+		var usePowerUp = Input.GetButton ("PowerUp" + playerIndex.ToString ());
+		if (usePowerUp) 
+		{
+			_character.controller.TryUsePowerUp ();
+		}
 
         _renderer.flipX = move < 0;
         if (grounded)
