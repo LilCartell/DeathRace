@@ -38,11 +38,22 @@ public class requinScript : MonoBehaviour {
     {
         if (collision.gameObject.tag == "Border")
         {
-            print("Je suis la");
             DeActivate();
             Invoke("Activate", 2f);
             transform.position = _startinPoint;
         }
+        else if (collision.gameObject.tag == "Water")
+        {
+            GetComponent<Animator>().SetTrigger("Jump");
+            _rigidbody.simulated = false;
+        }
+    }
+
+    public void OnEndAnimation()
+    {
+        DeActivate();
+        Invoke("Activate", 2f);
+        transform.position = _startinPoint;
     }
 
     public void OnCollisionEnter2D(Collision2D collision)
