@@ -10,6 +10,7 @@ namespace AssemblyCSharp
 		public float TimeBetweenActivations = 20f;
 		private float _timeSinceDeactivation = 0;
         public AudioClip _clipToPlay;
+        public Vector3 _deadBodySpawnPosition;
 
         private Sprite spr;
 
@@ -45,7 +46,7 @@ namespace AssemblyCSharp
 
 		public override void CharacterEntered(Character character)
 		{
-            print("Character entered");
+            print(name + " : Character entered");
 			if (activated) 
 			{
 				Deactivate ();				
@@ -73,19 +74,21 @@ namespace AssemblyCSharp
 		}
 
 		public void OnFinishedKill(){
-            print("on finished kill");
+            print(name + " : on finished kill");
 			if (ReplaceWithDeadBody) {
                 GameObject temp = GameObject.Instantiate<GameObject>(new GameObject(), transform.position, transform.rotation);
                 var spR = temp.AddComponent<SpriteRenderer>();
+                var coll = temp.AddComponent<BoxCollider2D>();
+                coll.isTrigger = false;
+                coll.size = new Vector2(1, 0.8f);
                 spR.sprite = spr;
                 temp.transform.parent = transform;
-                temp.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 3);
-                gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
+                temp.transform.position = transform.position + _deadBodySpawnPosition;
+                //gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
 			}
 		}
 
 		public virtual void Deactivate(){
-            print("deactivate");
 			activated = false;
 			_timeSinceDeactivation = 0f;
 		}
