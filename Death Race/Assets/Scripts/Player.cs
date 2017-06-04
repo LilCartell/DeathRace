@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using AssemblyCSharp;
 using System;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
 
@@ -18,12 +19,16 @@ public class Player : MonoBehaviour {
 
 	private Character _currentCharacter;
 
+	public Image powerUpImage;
+	public Text scoreText;
+
 	public void Awake()
 	{
 		score = StartingScore;
 
 		SpawnNewCharacter();
 		_timeSinceLastPowerUp = 0;
+		scoreText.text = score.ToString ();
 	}
 
 	public void Update()
@@ -58,6 +63,7 @@ public class Player : MonoBehaviour {
 		{
 			RemovePoints (-points);
 		}
+		scoreText.text = score.ToString ();
 	}
 
 	public void OnCharacterIsDead(Trap trap)
@@ -86,6 +92,7 @@ public class Player : MonoBehaviour {
 			_currentPowerUp.Activate (_currentCharacter);
 			_currentPowerUp = null;
 			_timeSinceLastPowerUp = 0;
+			powerUpImage.gameObject.SetActive(false);
 		}
 	}
 
@@ -99,7 +106,8 @@ public class Player : MonoBehaviour {
 				_currentPowerUp = new SwapPowerUp ();
 				break;
 		}
-
+		powerUpImage.gameObject.SetActive (true);
+		powerUpImage.sprite = _currentPowerUp.GetSprite ();
 		_timeSinceLastPowerUp = 0;
 	}
 
