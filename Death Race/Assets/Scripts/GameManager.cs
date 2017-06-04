@@ -1,10 +1,12 @@
 ﻿using System;
+using UnityEngine.SceneManagement;
 
 namespace AssemblyCSharp
 {
 	public class GameManager
 	{
 		private static GameManager instance = null;
+		public Player winner;
 
 		public static GameManager Instance 
 		{ 
@@ -18,7 +20,8 @@ namespace AssemblyCSharp
 
 		public void MakePlayerWin(Player player)
 		{
-			//TODO What happens when you win ?
+			winner = player;
+			SceneManager.LoadScene (2);
 		}
 	}
 }
