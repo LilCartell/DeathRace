@@ -9,6 +9,7 @@ namespace AssemblyCSharp
 		public bool Periodic = false;
 		public float TimeBetweenActivations = 20f;
 		private float _timeSinceDeactivation = 0;
+        public AudioClip _clipToPlay;
 
         private Sprite spr;
 
@@ -50,7 +51,14 @@ namespace AssemblyCSharp
 				Deactivate ();				
 				trap.Trigger ();
 				character.Die (trap);
-                spr = character.deathSprite(GetComponent<Trap>().causeOfDeath);
+                spr = character.deathSprite(trap.causeOfDeath);
+
+                AudioSource src = GetComponent<AudioSource>();
+                if (src && _clipToPlay)
+                {
+                    src.clip = _clipToPlay;
+                    src.Play();
+                }
 			}
 		}
 

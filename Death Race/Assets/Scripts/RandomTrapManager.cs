@@ -29,7 +29,7 @@ public class RandomTrapManager : MonoBehaviour
 		timeSinceLastTrap += Time.deltaTime;
 		if (timeSinceLastTrap >= TimeBetweenTraps && _randomDeathTiles.Count > 0 && trapPrefabs.Count > 0) 
 		{
-			var deactivatedRandomDeathTiles = _randomDeathTiles.Where(tile => tile.Activated).ToList();
+			var deactivatedRandomDeathTiles = _randomDeathTiles.Where(tile => !tile.Activated).ToList();
 			var chosenTile = deactivatedRandomDeathTiles [Random.Range (0, deactivatedRandomDeathTiles.Count)];
 			chosenTile.SpawnNewTrap (trapPrefabs [Random.Range (0, trapPrefabs.Count)]);
 			timeSinceLastTrap = 0;

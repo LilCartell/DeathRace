@@ -18,7 +18,8 @@ public class Press_ray : MonoBehaviour {
     {
         if (other.tag == "Player" && !transform.parent.gameObject.GetComponent<Rigidbody2D>())
         {
-            transform.parent.gameObject.AddComponent<Rigidbody2D>();
+            var r = transform.parent.gameObject.AddComponent<Rigidbody2D>();
+            r.mass = 1000;
         }
     }
 }
