@@ -33,9 +33,11 @@ public class Character : MonoBehaviour {
         }
         _audioSource.clip = deathScreams[Random.Range(0, deathScreams.Length)];
         _audioSource.Play();
-	}
+        GetComponent<PlayerController>().enabled = false;
+        GetComponent<Rigidbody2D>().simulated = false;
+    }
 
-	private void EndDeath()
+    private void EndDeath()
 	{
 		controller.OnCharacterIsDead (_killedBy);
 	}
