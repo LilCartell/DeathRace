@@ -13,7 +13,7 @@ public class Character : MonoBehaviour {
 	private Trap _killedBy;
     private AudioSource _audioSource;
 
-    public Sprite[] spr;
+    public Sprite[] corpseSprites;
 
 	private void Awake(){
 		_animator = GetComponent<Animator> ();
@@ -44,6 +44,6 @@ public class Character : MonoBehaviour {
 
     public Sprite deathSprite(CauseOfDeath death)
     {
-        return (spr[(int)death]);
+        return (corpseSprites[(int)death]);
     }
 }
