@@ -38,6 +38,7 @@ public class requinScript : MonoBehaviour {
     {
         if (collision.gameObject.tag == "Border")
         {
+            print("Je suis la");
             DeActivate();
             Invoke("Activate", 2f);
             transform.position = _startinPoint;
@@ -48,7 +49,6 @@ public class requinScript : MonoBehaviour {
     {
         if (collision.gameObject.tag == "Player")
         {
-            print("Lama");
             Character c = collision.gameObject.GetComponent<Character>();
             if (c)
                 c.Die(GetComponent<Trap>());
