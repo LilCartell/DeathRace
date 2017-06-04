@@ -8,13 +8,14 @@ namespace AssemblyCSharp
 		public bool ReplaceWithDeadBody = false;
 		public bool Periodic = false;
 		public float TimeBetweenActivations = 20f;
-		private float _timeSinceDeactivation = 0;
+		protected float _timeSinceDeactivation = 0;
         public AudioClip _clipToPlay;
         public Vector3 _deadBodySpawnPosition;
+        public GameObject _particleEmitter;
 
-        private Sprite spr;
+        protected Sprite spr;
 
-		private bool activated;
+        protected bool activated;
 		protected Trap trap;
 
 		public bool Activated{get { return activated;}}
@@ -85,6 +86,12 @@ namespace AssemblyCSharp
                 temp.transform.parent = transform;
                 temp.transform.position = transform.position + _deadBodySpawnPosition;
                 temp.layer = 9;
+                if (_particleEmitter)
+                {
+                    GameObject particles = GameObject.Instantiate(_particleEmitter);
+                    particles.transform.parent = transform;
+                    particles.transform.position = transform.position + _deadBodySpawnPosition;
+                }
 			}
 		}
 
