@@ -2,24 +2,40 @@
 using System.Collections.Generic;
 using UnityEngine;
 using AssemblyCSharp;
+using System;
 
 public class Player : MonoBehaviour {
 
 	public int StartingScore;
+	public float TimeBetweenPowerUps = 20f;
 
 	private int score;
 	public GameObject characterPrefab;
-    public Transform spawnPoint;
+    public int playerID;
+
+	private PowerUp _currentPowerUp;
+	private float _timeSinceLastPowerUp;
 
 	private Character _currentCharacter;
 
-	public void Awake(){
+	public void Awake()
+	{
 		score = StartingScore;
 
 		SpawnNewCharacter();
+		_timeSinceLastPowerUp = 0;
 	}
 
-	private void AddPoints(int points)
+	public void Update()
+	{
+		_timeSinceLastPowerUp += Time.deltaTime;
+		if (_timeSinceLastPowerUp >= TimeBetweenPowerUps && _currentPowerUp == null) 
+		{
+			PickRandomPowerUp ();
+		}
+	}
+
+    private void AddPoints(int points)
 	{
 		score += points;
 	}
@@ -59,8 +75,32 @@ public class Player : MonoBehaviour {
 		newCharacter.transform.localPosition = this.transform.localPosition;
 		newCharacter.transform.localRotation = this.transform.localRotation;
 		_currentCharacter = newCharacter.GetComponent<Character> ();
-        _currentCharacter.transform.position = spawnPoint.position;
 		_currentCharacter.controller = this;
+        _currentCharacter.GetComponent<PlayerController>().playerIndex = playerID;
+    }
+
+	public void TryUsePowerUp()
+	{
+		if (_currentPowerUp != null) 
+		{
+			_currentPowerUp.Activate (_currentCharacter);
+			_currentPowerUp = null;
+			_timeSinceLastPowerUp = 0;
+		}
+	}
+
+	private void PickRandomPowerUp()
+	{
+		var powerUpList = Enum.GetValues (typeof(PowerUps));
+		var random = (PowerUps) powerUpList.GetValue(UnityEngine.Random.Range(0, powerUpList.Length));
+		switch (random) 
+		{
+			case PowerUps.SWAP:
+				_currentPowerUp = new SwapPowerUp ();
+				break;
+		}
+
+		_timeSinceLastPowerUp = 0;
 	}
 
     public void DebugDie()

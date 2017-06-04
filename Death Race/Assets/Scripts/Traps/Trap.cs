@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace AssemblyCSharp
 {
-	[RequireComponent(typeof(Animator))]
+	//[RequireComponent(typeof(Animator))]
 	public class Trap : MonoBehaviour
 	{
 		public CauseOfDeath causeOfDeath;
@@ -13,13 +13,15 @@ namespace AssemblyCSharp
 		protected virtual void Awake()
 		{
             print("Awake Animation");
+            print(GetComponent<Animator>());
 			_animator = GetComponent<Animator> ();
 		}
 
-		public void Activate () 
+        public void Activate () 
 		{
             print("Activated animation");
-			_animator.SetTrigger ("Activate");
+            //if (_animator)
+    			_animator.SetTrigger ("Activate");
 		}
 			
 		public void Trigger ()

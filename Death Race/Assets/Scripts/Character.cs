@@ -13,6 +13,8 @@ public class Character : MonoBehaviour {
 	private Trap _killedBy;
     private AudioSource _audioSource;
 
+    public Sprite[] corpseSprites;
+
 	private void Awake(){
 		_animator = GetComponent<Animator> ();
 	}
@@ -31,10 +33,17 @@ public class Character : MonoBehaviour {
         }
         _audioSource.clip = deathScreams[Random.Range(0, deathScreams.Length)];
         _audioSource.Play();
-	}
+        GetComponent<PlayerController>().enabled = false;
+        GetComponent<Rigidbody2D>().simulated = false;
+    }
 
-	private void EndDeath()
+    private void EndDeath()
 	{
 		controller.OnCharacterIsDead (_killedBy);
 	}
+
+    public Sprite deathSprite(CauseOfDeath death)
+    {
+        return (corpseSprites[(int)death]);
+    }
 }

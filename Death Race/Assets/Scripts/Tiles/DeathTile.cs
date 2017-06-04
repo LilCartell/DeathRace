@@ -9,6 +9,10 @@ namespace AssemblyCSharp
 		public bool Periodic = false;
 		public float TimeBetweenActivations = 20f;
 		private float _timeSinceDeactivation = 0;
+        public AudioClip _clipToPlay;
+        public Vector3 _deadBodySpawnPosition;
+
+        private Sprite spr;
 
 		private bool activated;
 		protected Trap trap;
@@ -19,10 +23,14 @@ namespace AssemblyCSharp
 		{
 			base.Awake ();
 			trap = GetComponentInChildren<Trap> ();
-			Activate ();
 		}
 
-		protected override void Update()
+        public void Start()
+        {
+			Activate ();
+        }
+
+        protected override void Update()
 		{
 			base.Update ();
 			if (Periodic && !activated)
@@ -38,18 +46,26 @@ namespace AssemblyCSharp
 
 		public override void CharacterEntered(Character character)
 		{
-            print("Character entered");
+            print(name + " : Character entered");
 			if (activated) 
 			{
 				Deactivate ();				
 				trap.Trigger ();
 				character.Die (trap);
+                spr = character.deathSprite(trap.causeOfDeath);
+
+                AudioSource src = GetComponent<AudioSource>();
+                if (src && _clipToPlay)
+                {
+                    src.clip = _clipToPlay;
+                    src.Play();
+                }
 			}
 		}
 
 		public virtual void Activate()
 		{
-            print("Activate");
+            //print("Activate");
 			if (trap != null) 
 			{
 				trap.Activate ();
@@ -58,14 +74,21 @@ namespace AssemblyCSharp
 		}
 
 		public void OnFinishedKill(){
-            print("on finished kill");
+            print(name + " : on finished kill");
 			if (ReplaceWithDeadBody) {
-				//TODO Place a dead body to step on instead of the tile 
+                GameObject temp = GameObject.Instantiate<GameObject>(new GameObject(), transform.position, transform.rotation);
+                var spR = temp.AddComponent<SpriteRenderer>();
+                var coll = temp.AddComponent<BoxCollider2D>();
+                coll.isTrigger = false;
+                coll.size = new Vector2(1, 0.8f);
+                spR.sprite = spr;
+                temp.transform.parent = transform;
+                temp.transform.position = transform.position + _deadBodySpawnPosition;
+                //gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
 			}
 		}
 
 		public virtual void Deactivate(){
-            print("deactivate");
 			activated = false;
 			_timeSinceDeactivation = 0f;
 		}
