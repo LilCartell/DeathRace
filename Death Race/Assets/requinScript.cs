@@ -19,6 +19,7 @@ public class requinScript : MonoBehaviour {
             _rigidbody.simulated = _activated;
         _startinPoint = transform.position;
         _audioSource = GetComponent<AudioSource>();
+        GetComponent<SpriteRenderer>().enabled = false;
         Invoke("Activate", timeBeforeActivation);
 	}
 	
@@ -26,14 +27,15 @@ public class requinScript : MonoBehaviour {
     {
         _activated = true;
         _rigidbody.simulated = _activated;
-        print("Chimpanzé");
         transform.position = new Vector3(_startinPoint.x, _startinPoint.y + Random.Range(spawnRangeY * - 1, spawnRangeY) * 2, _startinPoint.z);
+        GetComponent<SpriteRenderer>().enabled = true;
     }
 
     void DeActivate()
     {
         _activated = false;
         _rigidbody.simulated = _activated;
+        GetComponent<SpriteRenderer>().enabled = false;
     }
 
 
