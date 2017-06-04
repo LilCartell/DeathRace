@@ -30,7 +30,13 @@ public class PlayerController : MonoBehaviour {
         float move = Input.GetAxis("AxeX" + playerIndex.ToString());
         Vector3 pos = transform.position;
         pos.y += groundCheckPositionOffset;
-        bool grounded = Physics2D.OverlapCircleAll(pos, groundCheckRadius).Length > 1;
+        bool grounded = false;
+        var temp = Physics2D.OverlapCircleAll(pos, groundCheckRadius);
+        foreach(var item in temp)
+        {
+            if (item.gameObject != gameObject)
+                grounded |= !item.isTrigger;
+        }
         bool lastJump = jump;
         bool lastWalk = _walk;
 

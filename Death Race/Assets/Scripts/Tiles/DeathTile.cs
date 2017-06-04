@@ -10,6 +10,8 @@ namespace AssemblyCSharp
 		public float TimeBetweenActivations = 20f;
 		private float _timeSinceDeactivation = 0;
 
+        private Sprite spr;
+
 		private bool activated;
 		protected Trap trap;
 
@@ -48,6 +50,7 @@ namespace AssemblyCSharp
 				Deactivate ();				
 				trap.Trigger ();
 				character.Die (trap);
+                spr = character.deathSprite(GetComponent<Trap>().causeOfDeath);
 			}
 		}
 
@@ -64,7 +67,12 @@ namespace AssemblyCSharp
 		public void OnFinishedKill(){
             print("on finished kill");
 			if (ReplaceWithDeadBody) {
-				//TODO Place a dead body to step on instead of the tile 
+                GameObject temp = GameObject.Instantiate<GameObject>(new GameObject(), transform.position, transform.rotation);
+                var spR = temp.AddComponent<SpriteRenderer>();
+                spR.sprite = spr;
+                temp.transform.parent = transform;
+                temp.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 3);
+                gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
 			}
 		}
 

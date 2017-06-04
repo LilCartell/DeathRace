@@ -13,6 +13,8 @@ public class Character : MonoBehaviour {
 	private Trap _killedBy;
     private AudioSource _audioSource;
 
+    public Sprite[] spr;
+
 	private void Awake(){
 		_animator = GetComponent<Animator> ();
 	}
@@ -37,4 +39,9 @@ public class Character : MonoBehaviour {
 	{
 		controller.OnCharacterIsDead (_killedBy);
 	}
+
+    public Sprite deathSprite(CauseOfDeath death)
+    {
+        return (spr[(int)death]);
+    }
 }
