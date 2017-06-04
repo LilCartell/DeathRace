@@ -7,22 +7,27 @@ public class requinScript : MonoBehaviour {
     Rigidbody2D _rigidbody;
     bool _activated = false;
     Vector3 _startinPoint;
+    public float timeBeforeActivation;
+    public int spawnRangeY;
 
     AudioSource _audioSource;
 
 	// Use this for initialization
 	void Start () {
         _rigidbody = GetComponent<Rigidbody2D>();
-        _rigidbody.simulated = _activated;
+        if (_rigidbody)
+            _rigidbody.simulated = _activated;
         _startinPoint = transform.position;
         _audioSource = GetComponent<AudioSource>();
-        Invoke("Activate", 2f);
+        Invoke("Activate", timeBeforeActivation);
 	}
 	
     void Activate()
     {
         _activated = true;
         _rigidbody.simulated = _activated;
+        print("Chimpanzé");
+        transform.position = new Vector3(_startinPoint.x, _startinPoint.y + Random.Range(spawnRangeY * - 1, spawnRangeY) * 2, _startinPoint.z);
     }
 
     void DeActivate()
@@ -43,7 +48,7 @@ public class requinScript : MonoBehaviour {
         if (collision.gameObject.tag == "Border")
         {
             DeActivate();
-            Invoke("Activate", 2f);
+            Invoke("Activate", timeBeforeActivation);
             transform.position = _startinPoint;
         }
         else if (collision.gameObject.tag == "Water")
@@ -56,7 +61,7 @@ public class requinScript : MonoBehaviour {
     public void OnEndAnimation()
     {
         DeActivate();
-        Invoke("Activate", 2f);
+        Invoke("Activate", timeBeforeActivation);
         transform.position = _startinPoint;
     }
 

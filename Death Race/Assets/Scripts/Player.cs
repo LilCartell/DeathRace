@@ -21,6 +21,7 @@ public class Player : MonoBehaviour {
 
 	public Image powerUpImage;
 	public Text scoreText;
+	public Sprite winSprite;
 
 	public void Awake()
 	{
