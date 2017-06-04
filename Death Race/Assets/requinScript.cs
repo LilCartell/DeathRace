@@ -7,11 +7,15 @@ public class requinScript : MonoBehaviour {
     Rigidbody2D _rigidbody;
     bool _activated = false;
     Vector3 _startinPoint;
+
+    AudioSource _audioSource;
+
 	// Use this for initialization
 	void Start () {
         _rigidbody = GetComponent<Rigidbody2D>();
         _rigidbody.simulated = _activated;
         _startinPoint = transform.position;
+        _audioSource = GetComponent<AudioSource>();
         Invoke("Activate", 2f);
 	}
 	
@@ -63,6 +67,7 @@ public class requinScript : MonoBehaviour {
             Character c = collision.gameObject.GetComponent<Character>();
             if (c)
                 c.Die(GetComponent<Trap>());
+            _audioSource.Play();
         }
     }
 }
