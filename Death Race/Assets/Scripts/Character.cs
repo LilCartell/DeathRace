@@ -12,6 +12,7 @@ public class Character : MonoBehaviour {
 	private Animator _animator;
 	private Trap _killedBy;
     private AudioSource _audioSource;
+    bool _dead = false;
 
     public Sprite[] spr;
 
@@ -26,6 +27,9 @@ public class Character : MonoBehaviour {
 
     public void Die(Trap trap)
 	{
+        if (_dead)
+            return;
+        _dead = true;
         if (trap)
         {
     		_killedBy = trap;

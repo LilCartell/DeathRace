@@ -84,7 +84,7 @@ namespace AssemblyCSharp
                 spR.sprite = spr;
                 temp.transform.parent = transform;
                 temp.transform.position = transform.position + _deadBodySpawnPosition;
-                //gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
+                temp.layer = 9;
 			}
 		}
 
