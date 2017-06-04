@@ -32,6 +32,7 @@ public class Character : MonoBehaviour {
         _dead = true;
         if (trap)
         {
+            print("Killed by : " + trap. name + " for " + trap.ScoreModifier + " points !");
     		_killedBy = trap;
 	    	_animator.SetTrigger ("DEATH_" + trap.causeOfDeath.ToString ());
         }
