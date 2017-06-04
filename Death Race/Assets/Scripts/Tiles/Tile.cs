@@ -19,7 +19,15 @@ namespace AssemblyCSharp
 			}
 		}
 
-		public abstract void CharacterEntered(Character character);
+        public void OnCollisionEnter2D(Collision2D other)
+        {
+            if (other.gameObject.tag == "Player")
+            {
+                CharacterEntered(other.gameObject.GetComponent<Character>());
+            }
+        }
+
+        public abstract void CharacterEntered(Character character);
 	}
 }
 

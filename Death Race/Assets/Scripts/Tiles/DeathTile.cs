@@ -8,13 +8,13 @@ namespace AssemblyCSharp
 		public bool ReplaceWithDeadBody = false;
 		public bool Periodic = false;
 		public float TimeBetweenActivations = 20f;
-		private float _timeSinceDeactivation = 0;
+		protected float _timeSinceDeactivation = 0;
         public AudioClip _clipToPlay;
         public Vector3 _deadBodySpawnPosition;
 
-        private Sprite spr;
+        protected Sprite spr;
 
-		private bool activated;
+        protected bool activated;
 		protected Trap trap;
 
 		public bool Activated{get { return activated;}}
