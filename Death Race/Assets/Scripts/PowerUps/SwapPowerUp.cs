@@ -28,8 +28,9 @@ namespace AssemblyCSharp
 					}
 				}
 			}
-
-			var position = closestCharacter.transform.position;
+            character.GetComponent<Animator>().SetTrigger("Swap");
+            closestCharacter.GetComponent<Animator>().SetTrigger("Swap");
+            var position = closestCharacter.transform.position;
 			closestCharacter.transform.position = character.transform.position;
 			character.transform.position = position;
 		}

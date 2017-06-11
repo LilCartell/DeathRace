@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
 
-	public int StartingScore;
+	private int StartingScore = 1000;
 	public float TimeBetweenPowerUps = 20f;
 
 	private int score;
