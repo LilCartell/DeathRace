@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
 
-	private int StartingScore = 1000;
+	private int StartingScore = 1200;
 	public float TimeBetweenPowerUps = 20f;
 
 	private int score;
@@ -20,6 +20,7 @@ public class Player : MonoBehaviour {
 	private Character _currentCharacter;
 
 	public Image powerUpImage;
+	public Text powerUpCountdown;
 	public Text scoreText;
 	public Sprite winSprite;
 
@@ -35,9 +36,13 @@ public class Player : MonoBehaviour {
 	public void Update()
 	{
 		_timeSinceLastPowerUp += Time.deltaTime;
-		if (_timeSinceLastPowerUp >= TimeBetweenPowerUps && _currentPowerUp == null) 
+		if (_timeSinceLastPowerUp >= TimeBetweenPowerUps && _currentPowerUp == null)
 		{
 			PickRandomPowerUp ();
+		}
+		else
+		{
+			powerUpCountdown.text = Mathf.Ceil (TimeBetweenPowerUps - _timeSinceLastPowerUp).ToString();
 		}
 	}
 
@@ -94,6 +99,7 @@ public class Player : MonoBehaviour {
 			_currentPowerUp = null;
 			_timeSinceLastPowerUp = 0;
 			powerUpImage.gameObject.SetActive(false);
+			powerUpCountdown.gameObject.SetActive (true);
 		}
 	}
 
@@ -107,6 +113,7 @@ public class Player : MonoBehaviour {
 				_currentPowerUp = new SwapPowerUp ();
 				break;
 		}
+		powerUpCountdown.gameObject.SetActive (false);
 		powerUpImage.gameObject.SetActive (true);
 		powerUpImage.sprite = _currentPowerUp.GetSprite ();
 		_timeSinceLastPowerUp = 0;
